@@ -8,17 +8,19 @@ const listNumpad = Array.from(calcNumpad.children);
 const listOperators = Array.from(calcOperators.children);
 let firstOperand = '';
 let secondOperand = '';
-let currentOperator = null;
+let currentOperator = '';
 
 listNumpad.forEach((numButton) => {
     numButton.addEventListener('click', (event) => {
-        setOperand(event.target.innerText);
+        updateOperand(event.target.innerText);
+        updateResult();
     });
 });
 
 listOperators.forEach((operatorButton) => {
     operatorButton.addEventListener('click', (event) => {
-        setOperator(event.target.innerText);
+        updateOperator(event.target.innerText);
+        updateResult();
     });
 });
 
@@ -32,7 +34,7 @@ clearButton.addEventListener('click', () => {
     clear();
 });
 
-function setOperand(operand){
+function updateOperand(operand){
     if (!firstOperand && !currentOperator && !secondOperand){
         firstOperand = operand;
     }
@@ -47,13 +49,20 @@ function setOperand(operand){
     }
 }
 
-function setOperator(operator){
+function updateOperator(operator){
     if (firstOperand && !currentOperator && !secondOperand){
         currentOperator = operator;
     }
+    else if (firstOperand && currentOperator && secondOperand){
+        const result = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand))
+        updateResult(result);
+        firstOperand = result;
+        currentOperator = operator;
+        secondOperand = '';
+    }
 }
 
-function updateResult(result){
+function updateResult(result = ''){
     calcPreviousOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`;
     calcCurrentOutput.textContent = result;
 }
@@ -61,7 +70,7 @@ function updateResult(result){
 function clear(){
     firstOperand = '';
     secondOperand = '';
-    currentOperator = null;
+    currentOperator = '';
     calcPreviousOutput.textContent = '';
     calcCurrentOutput.textContent = '';
 }
