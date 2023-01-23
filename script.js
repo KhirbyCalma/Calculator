@@ -9,6 +9,7 @@ const listOperators = Array.from(calcOperators.children);
 let firstOperand = '';
 let secondOperand = '';
 let currentOperator = '';
+let finalResult = '';
 
 listNumpad.forEach((numButton) => {
     numButton.addEventListener('click', (event) => {
@@ -26,16 +27,27 @@ listOperators.forEach((operatorButton) => {
 
 equalButton.addEventListener('click', () => {
     if (firstOperand && currentOperator && secondOperand){
-        updateResult(operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand)));
+        finalResult = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand))
+        updateResult();
     }
 });
 
 clearButton.addEventListener('click', () => {
-    clear();
+    clearDisplay();
+    firstOperand = '';
+    secondOperand = '';
+    currentOperator = '';
+    finalResult = '';
 });
 
 function updateOperand(operand){
-    if (!firstOperand && !currentOperator && !secondOperand){
+    if (finalResult && firstOperand && currentOperator && secondOperand){
+        firstOperand = operand;
+        currentOperator = '';
+        secondOperand = '';
+        finalResult = '';
+    }
+    else if (!firstOperand && !currentOperator && !secondOperand){
         firstOperand = operand;
     }
     else if (firstOperand && !currentOperator && !secondOperand){
@@ -54,20 +66,21 @@ function updateOperator(operator){
         currentOperator = operator;
     }
     else if (firstOperand && currentOperator && secondOperand){
-        const result = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand))
-        updateResult(result);
-        firstOperand = result;
-        currentOperator = operator;
+        finalResult = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand))
+        updateResult();
+        firstOperand = finalResult;
         secondOperand = '';
+        currentOperator = operator;
+        finalResult = '';
     }
 }
 
-function updateResult(result = ''){
+function updateResult(){
     calcPreviousOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`;
-    calcCurrentOutput.textContent = result;
+    calcCurrentOutput.textContent = finalResult;
 }
 
-function clear(){
+function clearDisplay(){
     firstOperand = '';
     secondOperand = '';
     currentOperator = '';
