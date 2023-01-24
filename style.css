@@ -38,21 +38,42 @@ main{
 #calculator-container{
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
-    width: 25vw;
+    min-width: 15vw;
     height: auto;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 0.25rem solid black;
+    border-radius: 0.5rem;
 }
 
 #calculator-display{
-    background-color: gray;
+    background-color: white;
+    border: 0.25rem solid black;
+    border-radius: 0.5rem;
+}
+
+#calculator-functions{
+    display: flex;
+    gap: 1.5rem;
+}
+
+#calculator-functions > *{
+    flex: 1;
 }
 
 #calculator-numpad{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1.5rem;
 }
 
 #calculator-numpad > *{
     aspect-ratio: 1 / 1;
+}
+
+button{
+    border: 0.25rem solid black;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
 }
 
