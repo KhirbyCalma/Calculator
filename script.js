@@ -58,6 +58,9 @@ deleteButton.addEventListener('click', () => {
     else if (firstOperand && !currentOperator && !secondOperand && !finalResult){
         firstOperand = firstOperand.slice(0, -1);
     }
+    if (!firstOperand){
+        firstOperand = String.fromCharCode(160);
+    }
     updateResult();
 });
 
