@@ -1,17 +1,15 @@
-const calcNumpad = document.getElementById('calculator-nums');
-const calcOperators = document.getElementById('calculator-operators');
 const calcPreviousOutput = document.getElementById('calculator-previous-output');
 const calcCurrentOutput = document.getElementById('calculator-current-output');
 const equalButton = document.getElementById('equal-button');
 const clearButton = document.getElementById('clear-button');
-const listNumpad = Array.from(calcNumpad.children);
-const listOperators = Array.from(calcOperators.children);
+const listNumbers = Array.from(document.getElementsByClassName('num-button'));
+const listOperators = Array.from(document.getElementsByClassName('operator-button'));
 let firstOperand = '';
 let secondOperand = '';
 let currentOperator = '';
 let finalResult = '';
 
-listNumpad.forEach((numButton) => {
+listNumbers.forEach((numButton) => {
     numButton.addEventListener('click', (event) => {
         updateOperand(event.target.innerText);
         updateResult();
@@ -76,16 +74,19 @@ function updateOperator(operator){
 }
 
 function updateResult(){
-    calcPreviousOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`;
-    calcCurrentOutput.textContent = finalResult;
+    if (finalResult){
+        calcCurrentOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand} = ${finalResult}`;
+    }
+    else{
+        calcCurrentOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`;
+    }
 }
 
 function clearDisplay(){
     firstOperand = '';
     secondOperand = '';
     currentOperator = '';
-    calcPreviousOutput.textContent = '';
-    calcCurrentOutput.textContent = '';
+    calcCurrentOutput.textContent = String.fromCharCode(160);
 }
 
 function stringToNumber(str){
