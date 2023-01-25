@@ -85,22 +85,45 @@ button{
     font-size: 2rem;
     padding: 1rem;
     color: white;
+    transition-duration: 0.25s;
+    box-shadow: 0 9px #999;
+}
+
+button:active{
+    transform: translateY(0.5rem);
+    box-shadow: 0 5px #666; 
 }
 
 .num-button, #decimal-button{
-    background-color: #FFC000;
+    background-color: #f2de00;
+}
+
+.num-button:hover, #decimal-button:hover{
+    background-color: goldenrod; 
 }
 
 .operator-button{
     background-color: lightblue;
 }
 
+.operator-button:hover{
+    background-color: darkblue; 
+}
+
 #equal-button{
     background-color: lightgreen;
 }
 
+#equal-button:hover{
+    background-color: darkgreen;
+}
+
 #clear-button, #delete-button{
     background-color: lightcoral;
+}
+
+#clear-button:hover, #delete-button:hover{
+    background-color: darkred;
 }
 
 @media screen and (max-width: 1024px) {
