@@ -2,6 +2,7 @@ const calcPreviousOutput = document.getElementById('calculator-previous-output')
 const calcCurrentOutput = document.getElementById('calculator-current-output');
 const equalButton = document.getElementById('equal-button');
 const clearButton = document.getElementById('clear-button');
+const decimalButton = document.getElementById('decimal-button');
 const listNumbers = Array.from(document.getElementsByClassName('num-button'));
 const listOperators = Array.from(document.getElementsByClassName('operator-button'));
 let firstOperand = '';
@@ -38,21 +39,44 @@ clearButton.addEventListener('click', () => {
     finalResult = '';
 });
 
+decimalButton.addEventListener('click', (event) => {
+    updateOperand(event.target.innerText);
+    updateResult();
+});
+
 function updateOperand(operand){
     if (finalResult && firstOperand && currentOperator && secondOperand){
-        firstOperand = operand;
-        currentOperator = '';
-        secondOperand = '';
-        finalResult = '';
+        if (operand !== '.'){
+            firstOperand = operand;
+            currentOperator = '';
+            secondOperand = '';
+            finalResult = '';
+        }
+        else{
+            firstOperand = `0${operand}`;
+            currentOperator = '';
+            secondOperand = '';
+            finalResult = '';
+        }
     }
     else if (!firstOperand && !currentOperator && !secondOperand){
-        firstOperand = operand;
+        if (operand !== '.'){
+            firstOperand = operand;
+        }
+        else{
+            firstOperand = `0${operand}`
+        }
     }
     else if (firstOperand && !currentOperator && !secondOperand){
         firstOperand += operand;
     }
     else if (firstOperand && currentOperator && !secondOperand){
-        secondOperand = operand;
+        if (operand !== '.'){
+            secondOperand = operand;
+        }
+        else{
+            secondOperand = `0${operand}`
+        }
     }
     else if (firstOperand && currentOperator && secondOperand){
         secondOperand += operand;
