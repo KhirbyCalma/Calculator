@@ -2,6 +2,8 @@ const calcPreviousOutput = document.getElementById('calculator-previous-output')
 const calcCurrentOutput = document.getElementById('calculator-current-output');
 const equalButton = document.getElementById('equal-button');
 const clearButton = document.getElementById('clear-button');
+const decimalButton = document.getElementById('decimal-button');
+const deleteButton = document.getElementById('delete-button');
 const listNumbers = Array.from(document.getElementsByClassName('num-button'));
 const listOperators = Array.from(document.getElementsByClassName('operator-button'));
 let firstOperand = '';
@@ -38,24 +40,72 @@ clearButton.addEventListener('click', () => {
     finalResult = '';
 });
 
-function updateOperand(operand){
-    if (finalResult && firstOperand && currentOperator && secondOperand){
-        firstOperand = operand;
-        currentOperator = '';
-        secondOperand = '';
+decimalButton.addEventListener('click', (event) => {
+    updateOperand(event.target.innerText);
+    updateResult();
+});
+
+deleteButton.addEventListener('click', () => {
+    if (firstOperand && currentOperator && secondOperand && finalResult){
         finalResult = '';
     }
+    else if (firstOperand && currentOperator && secondOperand && !finalResult){
+        secondOperand = secondOperand.slice(0, -1);
+    }
+    else if (firstOperand && currentOperator && !secondOperand && !finalResult){
+        currentOperator = '';
+    }
+    else if (firstOperand && !currentOperator && !secondOperand && !finalResult){
+        firstOperand = firstOperand.slice(0, -1);
+    }
+    if (!firstOperand){
+        firstOperand = String.fromCharCode(160);
+    }
+    updateResult();
+});
+
+function updateOperand(operand){
+    if (finalResult && firstOperand && currentOperator && secondOperand){
+        if (operand !== '.'){
+            firstOperand = operand;
+            currentOperator = '';
+            secondOperand = '';
+            finalResult = '';
+        }
+        else{
+            firstOperand = `0${operand}`;
+            currentOperator = '';
+            secondOperand = '';
+            finalResult = '';
+        }
+    }
     else if (!firstOperand && !currentOperator && !secondOperand){
-        firstOperand = operand;
+        if (operand !== '.'){
+            firstOperand = operand;
+        }
+        else{
+            firstOperand = `0${operand}`
+        }
     }
     else if (firstOperand && !currentOperator && !secondOperand){
-        firstOperand += operand;
+        if (operand === '.' && firstOperand.indexOf('.') > - 1){}
+        else{
+            firstOperand += operand;
+        }
     }
     else if (firstOperand && currentOperator && !secondOperand){
-        secondOperand = operand;
+        if (operand !== '.'){
+            secondOperand = operand;
+        }
+        else{
+            secondOperand = `0${operand}`
+        }
     }
     else if (firstOperand && currentOperator && secondOperand){
-        secondOperand += operand;
+        if (operand === '.' && secondOperand.indexOf('.') > - 1){}
+        else{
+            secondOperand += operand;
+        }
     }
 }
 
