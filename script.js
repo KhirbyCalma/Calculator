@@ -46,13 +46,16 @@ decimalButton.addEventListener('click', (event) => {
 });
 
 deleteButton.addEventListener('click', () => {
-    if (firstOperand && currentOperator && secondOperand){
+    if (firstOperand && currentOperator && secondOperand && finalResult){
+        finalResult = '';
+    }
+    else if (firstOperand && currentOperator && secondOperand && !finalResult){
         secondOperand = secondOperand.slice(0, -1);
     }
-    else if (firstOperand && currentOperator && !secondOperand){
+    else if (firstOperand && currentOperator && !secondOperand && !finalResult){
         currentOperator = '';
     }
-    else if (firstOperand && !currentOperator && !secondOperand){
+    else if (firstOperand && !currentOperator && !secondOperand && !finalResult){
         firstOperand = firstOperand.slice(0, -1);
     }
     updateResult();
