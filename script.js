@@ -3,6 +3,7 @@ const calcCurrentOutput = document.getElementById('calculator-current-output');
 const equalButton = document.getElementById('equal-button');
 const clearButton = document.getElementById('clear-button');
 const decimalButton = document.getElementById('decimal-button');
+const deleteButton = document.getElementById('delete-button');
 const listNumbers = Array.from(document.getElementsByClassName('num-button'));
 const listOperators = Array.from(document.getElementsByClassName('operator-button'));
 let firstOperand = '';
@@ -41,6 +42,19 @@ clearButton.addEventListener('click', () => {
 
 decimalButton.addEventListener('click', (event) => {
     updateOperand(event.target.innerText);
+    updateResult();
+});
+
+deleteButton.addEventListener('click', () => {
+    if (firstOperand && currentOperator && secondOperand){
+        secondOperand = secondOperand.slice(0, -1);
+    }
+    else if (firstOperand && currentOperator && !secondOperand){
+        currentOperator = '';
+    }
+    else if (firstOperand && !currentOperator && !secondOperand){
+        firstOperand = firstOperand.slice(0, -1);
+    }
     updateResult();
 });
 
