@@ -68,7 +68,10 @@ function updateOperand(operand){
         }
     }
     else if (firstOperand && !currentOperator && !secondOperand){
-        firstOperand += operand;
+        if (operand === '.' && firstOperand.indexOf('.') > - 1){}
+        else{
+            firstOperand += operand;
+        }
     }
     else if (firstOperand && currentOperator && !secondOperand){
         if (operand !== '.'){
@@ -79,7 +82,10 @@ function updateOperand(operand){
         }
     }
     else if (firstOperand && currentOperator && secondOperand){
-        secondOperand += operand;
+        if (operand === '.' && secondOperand.indexOf('.') > - 1){}
+        else{
+            secondOperand += operand;
+        }
     }
 }
 
