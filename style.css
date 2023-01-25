@@ -36,13 +36,13 @@ main{
 }
 
 #calculator-container{
-    margin: 3rem 0rem;
+    margin: 2rem 0rem;
     display: flex;
     flex-direction: column;
-    min-width: 25vw;
+    width: 25vw;
     height: auto;
-    gap: 0.5rem;
-    padding: 0.5rem;
+    gap: 1rem;
+    padding: 1rem;
     border: 0.25rem solid black;
     border-radius: 1rem;
     background-color: #AAAAAA;
@@ -52,7 +52,7 @@ main{
     background-color: white;
     border: 0.25rem solid black;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0rem 1rem;
     text-align: right;
     font-size: 2rem;
     font-weight: bold;
@@ -60,7 +60,8 @@ main{
 
 #calculator-functions{
     display: flex;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 #calculator-functions > *{
@@ -70,7 +71,7 @@ main{
 #calculator-numpad{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 #calculator-numpad > *{
@@ -79,28 +80,31 @@ main{
 
 button{
     border: 0.25rem solid black;
-    border-radius: 0.5rem;
-    padding: 1rem 2rem;
+    border-radius: 1rem;
     font-weight: bold;
     font-size: 2rem;
+    padding: 1rem;
+    color: white;
 }
 
-.num-button, #decimal-button, #delete-button{
+.num-button, #decimal-button{
     background-color: #FFC000;
-    color: white;
 }
 
 .operator-button{
     background-color: lightblue;
-    color: white;
 }
 
 #equal-button{
     background-color: lightgreen;
-    color: white;
 }
 
-#clear-button{
+#clear-button, #delete-button{
     background-color: lightcoral;
-    color: white;
+}
+
+@media screen and (max-width: 1024px) {
+    #calculator-container{
+        width: 50vw;
+    }
 }

@@ -74,16 +74,19 @@ function updateOperator(operator){
 }
 
 function updateResult(){
-    calcPreviousOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`;
-    calcCurrentOutput.textContent = finalResult;
+    if (finalResult){
+        calcCurrentOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand} = ${finalResult}`;
+    }
+    else{
+        calcCurrentOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`;
+    }
 }
 
 function clearDisplay(){
     firstOperand = '';
     secondOperand = '';
     currentOperator = '';
-    calcPreviousOutput.textContent = '';
-    calcCurrentOutput.textContent = '';
+    calcCurrentOutput.textContent = String.fromCharCode(160);
 }
 
 function stringToNumber(str){
