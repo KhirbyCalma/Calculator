@@ -1,49 +1,109 @@
-const calcPreviousOutput = document.getElementById('calculator-previous-output');
-const calcCurrentOutput = document.getElementById('calculator-current-output');
-const equalButton = document.getElementById('equal-button');
-const clearButton = document.getElementById('clear-button');
-const decimalButton = document.getElementById('decimal-button');
-const deleteButton = document.getElementById('delete-button');
-const listNumbers = Array.from(document.getElementsByClassName('num-button'));
-const listOperators = Array.from(document.getElementsByClassName('operator-button'));
+// CALCULATOR DISPLAY
+const previousDisplayOutput = document.querySelector('#calculator-display #calculator-previous-output');
+const currentDisplayOutput = document.querySelector('#calculator-display #calculator-current-output');
+// CALCULATOR NUMBERS AND DECIMAL
+const listNumpad = Array.from(document.querySelectorAll('#calculator-numpad .num-button'));
+// CALCULATOR OPERATORS
+const listOperators = Array.from(document.querySelectorAll('#calculator-operators .operator-button'));
+// CALCULATOR EQUALS
+const equalButton = document.querySelector('#calculator-operators #equal-button');
+// CALCULATOR CLEAR
+const clearButton = document.querySelector('#calculator-functions #clear-button');
+// CALCULATOR DELETE
+const deleteButton = document.querySelector('#calculator-functions #delete-button');
+// CALCULATOR EQUATION COMPONENTS
 let firstOperand = '';
 let secondOperand = '';
 let currentOperator = '';
 let finalResult = '';
+// OTHER
+const NON_BREAKING_SPACE = '\u00A0';
 
-listNumbers.forEach((numButton) => {
+listNumpad.forEach((numButton) => {
     numButton.addEventListener('click', (event) => {
-        updateOperand(event.target.innerText);
-        updateResult();
+        if (firstOperand && currentOperator && secondOperand && finalResult) clearDisplay();
+        updateOperands(event.target.textContent);
+        updateDisplay();
     });
 });
+
+function updateOperands(operand){
+    // first operand only
+    if (!firstOperand && !currentOperator && !secondOperand && !finalResult ||
+        firstOperand && !currentOperator && !secondOperand && !finalResult) {
+        firstOperand += operand;
+    }
+    // second operand only
+    else if (firstOperand && currentOperator && !secondOperand && !finalResult ||
+             firstOperand && currentOperator && secondOperand && !finalResult) {
+        secondOperand += operand;
+    }
+}
 
 listOperators.forEach((operatorButton) => {
     operatorButton.addEventListener('click', (event) => {
-        updateOperator(event.target.innerText);
-        updateResult();
+        if (firstOperand && currentOperator && secondOperand && !finalResult ||
+            firstOperand && currentOperator && secondOperand && finalResult) {
+            firstOperand = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand));
+            currentOperator = '';
+            secondOperand = '';
+            finalResult = '';
+        }
+        updateOperator(event.target.textContent);
+        updateDisplay();
     });
 });
 
-equalButton.addEventListener('click', () => {
-    if (firstOperand && currentOperator && secondOperand){
-        finalResult = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand))
-        updateResult();
+function updateOperator(operator){
+    // first operator
+    if (firstOperand && !currentOperator && !secondOperand && !finalResult){
+        currentOperator = operator;
     }
+}
+
+
+equalButton.addEventListener('click', () => {
+    if (firstOperand && currentOperator && secondOperand && !finalResult) finalResult = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand));
+    updateDisplay();
 });
 
-clearButton.addEventListener('click', () => {
-    clearDisplay();
+function updateDisplay(){
+    if (!firstOperand && !currentOperator && !secondOperand && !finalResult){
+        previousDisplayOutput.textContent = NON_BREAKING_SPACE;
+        currentDisplayOutput.textContent = `Calculator`;
+    }
+    // first operand, by itself, goes in current display
+    else if (firstOperand && !currentOperator && !secondOperand && !finalResult){
+        previousDisplayOutput.textContent = NON_BREAKING_SPACE;
+        currentDisplayOutput.textContent = `${firstOperand}`;
+    }
+    // first operand and current operator goes to previous display while current display blank for second operand
+    else if (firstOperand && currentOperator && !secondOperand && !finalResult) {
+        previousDisplayOutput.textContent = `${firstOperand} ${currentOperator}`;
+        currentDisplayOutput.textContent = NON_BREAKING_SPACE;
+    }
+    // first operand and current operator goes to previous display while current display for second operand
+    else if (firstOperand && currentOperator && secondOperand && !finalResult) {
+        previousDisplayOutput.textContent = `${firstOperand} ${currentOperator}`;
+        currentDisplayOutput.textContent = `${secondOperand}`;
+    }
+    // 
+    else if (firstOperand && currentOperator && secondOperand && finalResult) {
+        previousDisplayOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand} =`;
+        currentDisplayOutput.textContent = `${finalResult}`;
+    }
+}
+
+clearButton.addEventListener('click', clearDisplay);
+
+function clearDisplay(){
     firstOperand = '';
-    secondOperand = '';
     currentOperator = '';
+    secondOperand = '';
     finalResult = '';
-});
-
-decimalButton.addEventListener('click', (event) => {
-    updateOperand(event.target.innerText);
-    updateResult();
-});
+    previousDisplayOutput.textContent = NON_BREAKING_SPACE;
+    currentDisplayOutput.textContent = `Calculator`;
+}
 
 deleteButton.addEventListener('click', () => {
     if (firstOperand && currentOperator && secondOperand && finalResult){
@@ -58,106 +118,18 @@ deleteButton.addEventListener('click', () => {
     else if (firstOperand && !currentOperator && !secondOperand && !finalResult){
         firstOperand = firstOperand.slice(0, -1);
     }
-    if (!firstOperand){
-        firstOperand = String.fromCharCode(160);
-    }
-    updateResult();
+    updateDisplay();
 });
 
-function updateOperand(operand){
-    if (finalResult && firstOperand && currentOperator && secondOperand){
-        if (operand !== '.'){
-            firstOperand = operand;
-            currentOperator = '';
-            secondOperand = '';
-            finalResult = '';
-        }
-        else{
-            firstOperand = `0${operand}`;
-            currentOperator = '';
-            secondOperand = '';
-            finalResult = '';
-        }
-    }
-    else if (!firstOperand && !currentOperator && !secondOperand){
-        if (operand !== '.'){
-            firstOperand = operand;
-        }
-        else{
-            firstOperand = `0${operand}`
-        }
-    }
-    else if (firstOperand && !currentOperator && !secondOperand){
-        if (operand === '.' && firstOperand.indexOf('.') > - 1){}
-        else{
-            firstOperand += operand;
-        }
-    }
-    else if (firstOperand && currentOperator && !secondOperand){
-        if (operand !== '.'){
-            secondOperand = operand;
-        }
-        else{
-            secondOperand = `0${operand}`
-        }
-    }
-    else if (firstOperand && currentOperator && secondOperand){
-        if (operand === '.' && secondOperand.indexOf('.') > - 1){}
-        else{
-            secondOperand += operand;
-        }
-    }
-}
+function stringToNumber(str){ return Number(str); }
 
-function updateOperator(operator){
-    if (firstOperand && !currentOperator && !secondOperand){
-        currentOperator = operator;
-    }
-    else if (firstOperand && currentOperator && secondOperand){
-        finalResult = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand))
-        updateResult();
-        firstOperand = finalResult;
-        secondOperand = '';
-        currentOperator = operator;
-        finalResult = '';
-    }
-}
+function add(a, b){ return a + b; }
 
-function updateResult(){
-    if (finalResult){
-        calcCurrentOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand} = ${finalResult}`;
-    }
-    else{
-        calcCurrentOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand}`;
-    }
-}
+function subtract(a, b){ return a - b; }
 
-function clearDisplay(){
-    firstOperand = '';
-    secondOperand = '';
-    currentOperator = '';
-    calcCurrentOutput.textContent = String.fromCharCode(160);
-}
+function multiply(a, b){ return a * b; }
 
-function stringToNumber(str){
-    return Number(str);
-}
-
-function add(a, b){
-    return a + b;
-}
-
-function subtract(a, b){
-    return a - b;
-}
-
-function multiply(a, b){
-    return a * b;
-}
-
-function divide(a, b){
-    return a / b;
-}
+function divide(a, b){ return a / b; }
 
 function operate(operator, a, b){
     switch (operator){
