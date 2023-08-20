@@ -21,6 +21,7 @@ const NON_BREAKING_SPACE = '\u00A0';
 
 listNumpad.forEach((numButton) => {
     numButton.addEventListener('click', (event) => {
+        // start new equation as previous equation already has been solved
         if (firstOperand && currentOperator && secondOperand && finalResult) clearDisplay();
         updateOperands(event.target.textContent);
         updateDisplay();
@@ -42,6 +43,7 @@ function updateOperands(operand){
 
 listOperators.forEach((operatorButton) => {
     operatorButton.addEventListener('click', (event) => {
+        // continue next equation from previous equation (if the previous has its second operand OR final result)
         if (firstOperand && currentOperator && secondOperand && !finalResult ||
             firstOperand && currentOperator && secondOperand && finalResult) {
             firstOperand = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand));
@@ -61,13 +63,13 @@ function updateOperator(operator){
     }
 }
 
-
 equalButton.addEventListener('click', () => {
     if (firstOperand && currentOperator && secondOperand && !finalResult) finalResult = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand));
     updateDisplay();
 });
 
 function updateDisplay(){
+    // nothing inputted 
     if (!firstOperand && !currentOperator && !secondOperand && !finalResult){
         previousDisplayOutput.textContent = NON_BREAKING_SPACE;
         currentDisplayOutput.textContent = `Calculator`;
@@ -87,7 +89,7 @@ function updateDisplay(){
         previousDisplayOutput.textContent = `${firstOperand} ${currentOperator}`;
         currentDisplayOutput.textContent = `${secondOperand}`;
     }
-    // 
+    // first operand, current operator, and second operand goes to previous display while current display for final result
     else if (firstOperand && currentOperator && secondOperand && finalResult) {
         previousDisplayOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand} =`;
         currentDisplayOutput.textContent = `${finalResult}`;
@@ -106,15 +108,19 @@ function clearDisplay(){
 }
 
 deleteButton.addEventListener('click', () => {
+    // only deletes calculated result
     if (firstOperand && currentOperator && secondOperand && finalResult){
         finalResult = '';
     }
+    // deletes second operand character one at a time (once final result does not exist)
     else if (firstOperand && currentOperator && secondOperand && !finalResult){
         secondOperand = secondOperand.slice(0, -1);
     }
+    // deletes current operator character(once final result and second operand does not exist)
     else if (firstOperand && currentOperator && !secondOperand && !finalResult){
         currentOperator = '';
     }
+    // deletes first operand character one at a time (once final result, second operand, and first operand does not exist)
     else if (firstOperand && !currentOperator && !secondOperand && !finalResult){
         firstOperand = firstOperand.slice(0, -1);
     }
