@@ -46,13 +46,25 @@ listOperators.forEach((operatorButton) => {
         // continue next equation from previous equation (if the previous has its second operand OR final result)
         if (firstOperand && currentOperator && secondOperand && !finalResult ||
             firstOperand && currentOperator && secondOperand && finalResult) {
-            firstOperand = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand));
-            currentOperator = '';
-            secondOperand = '';
-            finalResult = '';
+                // check for dividing by zero case
+                const potentialResult = operate(currentOperator, stringToNumber(firstOperand), stringToNumber(secondOperand));
+                if (potentialResult === Infinity || potentialResult === -Infinity) {
+                    finalResult = potentialResult;
+                }
+                else {
+                    firstOperand = potentialResult;
+                    currentOperator = '';
+                    secondOperand = '';
+                    finalResult = '';
+                    updateOperator(event.target.textContent);
+                }
+                updateDisplay();
         }
-        updateOperator(event.target.textContent);
-        updateDisplay();
+        // first equation
+        else {
+            updateOperator(event.target.textContent);
+            updateDisplay();
+        }
     });
 });
 
@@ -91,8 +103,14 @@ function updateDisplay(){
     }
     // first operand, current operator, and second operand goes to previous display while current display for final result
     else if (firstOperand && currentOperator && secondOperand && finalResult) {
-        previousDisplayOutput.textContent = `${stringToNumber(firstOperand).toLocaleString("en-US")} ${currentOperator} ${stringToNumber(secondOperand).toLocaleString("en-US")} =`;
-        currentDisplayOutput.textContent = `${stringToNumber(finalResult).toLocaleString("en-US")}`;
+        if (finalResult === Infinity || finalResult === -Infinity) {
+            previousDisplayOutput.textContent = `${stringToNumber(firstOperand).toLocaleString("en-US")} ${currentOperator} ${stringToNumber(secondOperand).toLocaleString("en-US")} =`;
+            currentDisplayOutput.textContent = `ERROR: DIVIDE BY ZERO`;
+        }
+        else {
+            previousDisplayOutput.textContent = `${stringToNumber(firstOperand).toLocaleString("en-US")} ${currentOperator} ${stringToNumber(secondOperand).toLocaleString("en-US")} =`;
+            currentDisplayOutput.textContent = `${stringToNumber(finalResult).toLocaleString("en-US")}`;
+        }
     }
 }
 
@@ -135,7 +153,9 @@ function subtract(a, b){ return a - b; }
 
 function multiply(a, b){ return a * b; }
 
-function divide(a, b){ return a / b; }
+function divide(a, b){ 
+    return a / b; 
+}
 
 function operate(operator, a, b){
     switch (operator){
