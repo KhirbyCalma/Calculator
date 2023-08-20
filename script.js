@@ -77,22 +77,22 @@ function updateDisplay(){
     // first operand, by itself, goes in current display
     else if (firstOperand && !currentOperator && !secondOperand && !finalResult){
         previousDisplayOutput.textContent = NON_BREAKING_SPACE;
-        currentDisplayOutput.textContent = `${firstOperand}`;
+        currentDisplayOutput.textContent = `${stringToNumber(firstOperand).toLocaleString("en-US")}`;
     }
     // first operand and current operator goes to previous display while current display blank for second operand
     else if (firstOperand && currentOperator && !secondOperand && !finalResult) {
-        previousDisplayOutput.textContent = `${firstOperand} ${currentOperator}`;
+        previousDisplayOutput.textContent = `${stringToNumber(firstOperand).toLocaleString("en-US")} ${currentOperator}`;
         currentDisplayOutput.textContent = NON_BREAKING_SPACE;
     }
     // first operand and current operator goes to previous display while current display for second operand
     else if (firstOperand && currentOperator && secondOperand && !finalResult) {
-        previousDisplayOutput.textContent = `${firstOperand} ${currentOperator}`;
-        currentDisplayOutput.textContent = `${secondOperand}`;
+        previousDisplayOutput.textContent = `${stringToNumber(firstOperand).toLocaleString("en-US")} ${currentOperator}`;
+        currentDisplayOutput.textContent = `${stringToNumber(secondOperand).toLocaleString("en-US")}`;
     }
     // first operand, current operator, and second operand goes to previous display while current display for final result
     else if (firstOperand && currentOperator && secondOperand && finalResult) {
-        previousDisplayOutput.textContent = `${firstOperand} ${currentOperator} ${secondOperand} =`;
-        currentDisplayOutput.textContent = `${finalResult}`;
+        previousDisplayOutput.textContent = `${stringToNumber(firstOperand).toLocaleString("en-US")} ${currentOperator} ${stringToNumber(secondOperand).toLocaleString("en-US")} =`;
+        currentDisplayOutput.textContent = `${stringToNumber(finalResult).toLocaleString("en-US")}`;
     }
 }
 
