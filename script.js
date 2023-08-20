@@ -4,9 +4,9 @@ const currentDisplayOutput = document.querySelector('#calculator-display #calcul
 // CALCULATOR NUMBERS AND DECIMAL
 const listNumpad = Array.from(document.querySelectorAll('#calculator-numpad .num-button'));
 // CALCULATOR OPERATORS
-const listOperators = Array.from(document.querySelectorAll('#calculator-operators .operator-button'));
+const listOperators = Array.from(document.querySelectorAll('#calculator-numpad .operator-button'));
 // CALCULATOR EQUALS
-const equalButton = document.querySelector('#calculator-operators #equal-button');
+const equalButton = document.querySelector('#calculator-numpad #equal-button');
 // CALCULATOR CLEAR
 const clearButton = document.querySelector('#calculator-functions #clear-button');
 // CALCULATOR DELETE

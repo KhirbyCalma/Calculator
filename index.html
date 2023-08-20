@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="/styles/reset.css">
+        <link rel="stylesheet" href="./styles/style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -12,7 +13,9 @@
         <title>Calculator</title>
     </head>
     <body>
-        <header>Calculator</header>
+        <header>
+            <h1>Calculator</h1>
+        </header>
         <main>
             <section id="calculator-container">
                 <section id="calculator-display">
@@ -27,22 +30,20 @@
                     <button type="button" class="num-button">1</button>
                     <button type="button" class="num-button">2</button>
                     <button type="button" class="num-button">3</button>
+                    <button type="button" class="operator-button">+</button>
                     <button type="button" class="num-button">4</button>
                     <button type="button" class="num-button">5</button>
                     <button type="button" class="num-button">6</button>
+                    <button type="button" class="operator-button">-</button>  
                     <button type="button" class="num-button">7</button>
                     <button type="button" class="num-button">8</button>
                     <button type="button" class="num-button">9</button>
-                    <button type="button" class="num-button">0</button>
-                    <button type="button" class="num-button">.</button>
-                </section> 
-                <section id="calculator-operators">
-                    <button type="button" class="operator-button">+</button>
-                    <button type="button" class="operator-button">-</button>                  
                     <button type="button" class="operator-button">*</button>
-                    <button type="button" class="operator-button">/</button>
+                    <button type="button" class="num-button">.</button>
+                    <button type="button" class="num-button">0</button>
                     <button type="button" id="equal-button">=</button>
-                </section>
+                    <button type="button" class="operator-button">/</button>
+                </section> 
             </section>
         </main>
         <footer>
