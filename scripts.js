@@ -27,3 +27,7 @@ function operate(leftOperand, rightOperand, operator) {
 let leftOperand;
 let rightOperand;
 let operator;
+
+// QUERY SELECTORS
+const displayTextOutput = document.querySelector(".display .text-output");
+console.log(displayTextOutput.textContent);
