@@ -30,4 +30,11 @@ let operator;
 
 // QUERY SELECTORS
 const displayTextOutput = document.querySelector(".display .text-output");
-console.log(displayTextOutput.textContent);
+const numpadButtons = document.querySelectorAll(".numpad button.number");
+for (const numberButton of numpadButtons) {
+    numberButton.addEventListener("click", () => displayTextOutput.textContent += numberButton.textContent);
+}
+const operatorButtons = document.querySelectorAll(".operators button.operator");
+for (const operatorButton of operatorButtons) {
+    operatorButton.addEventListener("click", () => displayTextOutput.textContent += operatorButton.textContent);
+}
