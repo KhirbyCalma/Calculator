@@ -57,15 +57,15 @@ function setOperand(num) {
 }   
 
 function setOperator(op) {
-    // meaning there has to exist a left operand AND right operand not exist for an operator to be set
+    // Check that left operand DOES EXIST and right operand DOES NOT EXIST to guarantee operator needs to be filled in next
     if (leftOperand && !rightOperand) {
         operator = op;
     }
-    // meaning left operand, right operand, and operator already set to calculate equation
+    // Check all parts of equation needed EXIST to operate to guarantee that equation needs to be evaluated and new operator needs to be filled in after calculation
     else if (leftOperand && operator && rightOperand) {
-        leftOperand = operate(leftOperand, rightOperand, operator).toString();
-        rightOperand = '';
+        leftOperand = operate(leftOperand, rightOperand, operator).toString()
         operator = op;
+        rightOperand = '';
         updateDisplay();
     }
 }
