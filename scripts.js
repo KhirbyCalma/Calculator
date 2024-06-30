@@ -59,6 +59,13 @@ function setOperator(op) {
     if (leftOperand && !rightOperand) {
         operator = op;
     }
+    // meaning left operand, right operand, and operator already set to calculate equation
+    else if (leftOperand && operator && rightOperand) {
+        leftOperand = operate(leftOperand, rightOperand, operator).toString();
+        rightOperand = '';
+        operator = op;
+        updateDisplay();
+    }
 }
 
 function updateDisplay() {
