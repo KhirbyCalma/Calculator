@@ -65,7 +65,7 @@ function updateDisplay() {
     displayTextOutput.textContent = `${leftOperand} ${operator} ${rightOperand}`;
 }
 
-function clear() {
+function clearDisplay() {
     leftOperand = '';
     rightOperand = '';
     operator = ''; 
@@ -119,7 +119,7 @@ equalButton.addEventListener("click", () => {
     }
 });
 const clearButton = document.getElementById("CLEAR");
-clearButton.addEventListener("click", clear);
+clearButton.addEventListener("click", clearDisplay);
 const deleteButton = document.getElementById("DELETE");
 deleteButton.addEventListener("click", () => {
     deleteSingleCharDisplay();
