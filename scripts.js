@@ -44,9 +44,9 @@ function operate(leftOperand, rightOperand, operator) {
 }
 
 function setOperand(num) {
-    // meaning operator has not been set (meaning left operand needs to be filled)
+    // Check that operator and right operand DOES NOT EXIST to guarantee left operand needs to be filled in first
     // also checks if beginning number is 0 (meaning you cannot add numbers further (unless decimal))
-    if ( !operator && leftOperand.charAt(0) !== '0') {
+    if ( !operator && !rightOperand && leftOperand.charAt(0) !== '0') {
         leftOperand += num;
     } 
     // meaning operator has been set (meaning left operand is locked in)
