@@ -112,7 +112,7 @@ const equalButton = document.getElementById("EQUAL");
 equalButton.addEventListener("click", () => {
     // meaning every element of an math equation exists to be executed
     if (leftOperand && operator && rightOperand) {
-        leftOperand = operate(leftOperand, rightOperand, operator);
+        leftOperand = operate(leftOperand, rightOperand, operator).toString();
         rightOperand = '';
         operator = '';
         updateDisplay();
