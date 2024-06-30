@@ -65,6 +65,13 @@ function updateDisplay() {
     displayTextOutput.textContent = `${leftOperand} ${operator} ${rightOperand}`;
 }
 
+function clear() {
+    leftOperand = '';
+    rightOperand = '';
+    operator = ''; 
+    displayTextOutput.textContent = '';
+}
+
 // VARIABLES 
 let leftOperand = '';
 let rightOperand = '';
@@ -96,3 +103,5 @@ equalButton.addEventListener("click", () => {
         updateDisplay();
     }
 });
+const clearButton = document.getElementById("CLEAR");
+clearButton.addEventListener("click", clear);
