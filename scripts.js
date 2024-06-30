@@ -46,12 +46,12 @@ function operate(leftOperand, rightOperand, operator) {
 function setOperand(num) {
     // Check that operator and right operand DOES NOT EXIST to guarantee left operand needs to be filled in first
     // also checks if beginning number is 0 (meaning you cannot add numbers further (unless decimal))
-    if ( !operator && !rightOperand && leftOperand.charAt(0) !== '0') {
+    if ( !operator && !rightOperand && leftOperand.charAt(0) !== '0' ) {
         leftOperand += num;
     } 
-    // meaning operator has been set (meaning left operand is locked in)
+    // Check that left operand and operator DOES EXIST to guarantee right operand needs to be filled in next
     // also checks if beginning number is 0 (meaning you cannot add numbers further (unless decimal))
-    else if (operator && rightOperand.charAt(0) !== '0') {
+    else if ( leftOperand && operator && rightOperand.charAt(0) !== '0' ) {
         rightOperand += num;
     }
 }   
