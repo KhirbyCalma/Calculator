@@ -72,6 +72,21 @@ function clear() {
     displayTextOutput.textContent = '';
 }
 
+function deleteSingleCharDisplay() {
+    // meaning right operand exist to be deleted first
+    if (rightOperand) {
+        rightOperand = rightOperand.slice(0, -1); 
+    }
+    // meaning right operand is gone and operator still exists
+    else if (operator) {
+        operator = '';
+    }
+    // meaning right operand AND operator is gone and left operand exists
+    else if (leftOperand) {
+        leftOperand = leftOperand.slice(0, -1); 
+    }
+}
+
 // VARIABLES 
 let leftOperand = '';
 let rightOperand = '';
@@ -105,3 +120,8 @@ equalButton.addEventListener("click", () => {
 });
 const clearButton = document.getElementById("CLEAR");
 clearButton.addEventListener("click", clear);
+const deleteButton = document.getElementById("DELETE");
+deleteButton.addEventListener("click", () => {
+    deleteSingleCharDisplay();
+    updateDisplay();
+});
