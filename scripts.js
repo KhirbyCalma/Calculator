@@ -66,7 +66,6 @@ function setOperator(op) {
         leftOperand = operate(leftOperand, rightOperand, operator).toString()
         operator = op;
         rightOperand = '';
-        updateDisplay();
     }
 }
 
