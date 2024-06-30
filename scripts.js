@@ -78,7 +78,7 @@ function clearDisplay() {
     leftOperand = '';
     rightOperand = '';
     operator = ''; 
-    displayTextOutput.textContent = '';
+    updateDisplay();
 }
 
 function deleteSingleCharDisplay() {
