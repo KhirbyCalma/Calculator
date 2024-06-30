@@ -8,9 +8,29 @@ function divide(a, b) {
     } return a / b;
 }
 
+function convertOperatorToWord(operator) {
+    // use charcodeat method to convert char to integer w/in utf-16 
+    switch(operator.charCodeAt(0)) {
+        // addition
+        case (43):
+            return "ADD";
+        // subtraction
+        case (8722):
+            return "SUBTRACT";
+        // multiplication
+        case (215):
+            return "MULTIPLY";
+        // division
+        case (247):
+            return "DIVIDE";
+        default:
+            console.log("CONVERT OPERATOR TO WORD ERROR");
+    }
+}
+
 function operate(leftOperand, rightOperand, operator) {
-    switch (operator) {
-        case ("ADD") :
+    switch (convertOperatorToWord(operator)) {
+        case ("ADD"):
             return add(leftOperand, rightOperand);
         case ("SUBTRACT"):
             return subtract(leftOperand, rightOperand);
@@ -19,7 +39,7 @@ function operate(leftOperand, rightOperand, operator) {
         case ("DIVIDE"):
             return divide(leftOperand, rightOperand);
         default:
-            return "OPERATE FUNCTION ERROR";
+            console.log("OPERATE FUNCTION ERROR");
     }
 }
 
@@ -35,8 +55,8 @@ function setOperand(num) {
 }   
 
 function setOperator(op) {
-    // meaning there has to exist a left operand for an operator to be set
-    if (leftOperand) {
+    // meaning there has to exist a left operand AND right operand not exist for an operator to be set
+    if (leftOperand && !rightOperand) {
         operator = op;
     }
 }
@@ -66,3 +86,13 @@ for (const operatorButton of operatorButtons) {
         updateDisplay();
     });
 }
+const equalButton = document.getElementById("EQUAL");
+equalButton.addEventListener("click", () => {
+    // meaning every element of an math equation exists to be executed
+    if (leftOperand && operator && rightOperand) {
+        leftOperand = operate(leftOperand, rightOperand, operator);
+        rightOperand = '';
+        operator = '';
+        updateDisplay();
+    }
+});
