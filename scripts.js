@@ -235,8 +235,8 @@ document.addEventListener("keydown", (event) => {
     else if ( (event.key.charCodeAt(0) === 99) ) {
         clearDisplay();
     }
-    // act as toggling negative (shift key)
-    else if ( (event.key.charCodeAt(0) === 83) ) {
+    // act as toggling negative (n key)
+    else if ( (event.key.charCodeAt(0) === 110) ) {
         toggleNegative();
     }
 });
