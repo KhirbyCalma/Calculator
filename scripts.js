@@ -168,7 +168,32 @@ decimalButton.addEventListener("click", () => {
 });
 const negativeButton = document.getElementById("NEGATIVE");
 negativeButton.addEventListener("click", () => {
-    console.log("negative");
+    // toggle for left operand
+    if (!operator && !rightOperand) {
+        // if positive, add negative
+        if (leftOperand.charAt(0) !== "-") {
+            leftOperand = "-" + leftOperand;
+            updateDisplay();
+        }
+        // if negative, turn positive
+        else if (leftOperand.charAt(0) === "-") {
+            leftOperand = leftOperand.substring(1);
+            updateDisplay();
+        }
+    }
+    // toggle for right operand
+    else if (leftOperand && operator) {
+        // if positive, add negative
+        if (rightOperand.charAt(0) !== "-") {
+            rightOperand = "-" + rightOperand;
+            updateDisplay();
+        }
+        // if negative, turn positive
+        else if (rightOperand.charAt(0) === "-") {
+            rightOperand = rightOperand.substring(1);
+            updateDisplay();
+        }
+    }
 });
 // keyboard listener
 document.addEventListener("keydown", (event) => {
