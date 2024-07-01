@@ -168,7 +168,6 @@ decimalButton.addEventListener("click", () => {
 });
 // keyboard listener
 document.addEventListener("keydown", (event) => {
-    console.log(event.key.charCodeAt(0));
     // Act as numpad characters or decimal
     if ( (event.key.charCodeAt(0) >= 48 && event.key.charCodeAt(0) <= 57) ||
          (event.key.charCodeAt(0) === 46)
@@ -199,5 +198,9 @@ document.addEventListener("keydown", (event) => {
     else if ( (event.key.charCodeAt(0) === 66) ) {
         deleteSingleCharDisplay();
         updateDisplay();
+    }
+    // act as clear 
+    else if ( (event.key.charCodeAt(0) === 99) ) {
+        clearDisplay();32423
     }
 });
