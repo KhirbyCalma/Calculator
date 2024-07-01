@@ -150,5 +150,12 @@ decimalButton.addEventListener("click", () => {
 });
 // keyboard listener
 document.addEventListener("keydown", (event) => {
-    console.log(event.key);
+    console.log(event.key.charCodeAt(0));
+    // Act as numpad characters or decimal
+    if ( (event.key.charCodeAt(0) >= 48 && event.key.charCodeAt(0) <= 57) ||
+         (event.key.charCodeAt(0) === 46)
+    ) {
+        setOperand(event.key);
+        updateDisplay();
+    }
 });
