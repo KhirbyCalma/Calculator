@@ -45,14 +45,24 @@ function operate(leftOperand, rightOperand, operator) {
 
 function setOperand(num) {
     // Check that operator and right operand DOES NOT EXIST to guarantee left operand needs to be filled in first
-    // also checks if beginning number is 0 (meaning you cannot add numbers further (unless decimal))
-    if ( !operator && !rightOperand && leftOperand.charAt(0) !== '0' ) {
-        leftOperand += num;
+    if ( !operator && !rightOperand ) {
+        // Cant add to left operand when explicity a number tried to be added AND left operand is only a zero
+        if ( num !== "." && leftOperand === "0" ) { }
+        // Cant add to left operand when explicitly a decimal tried to be added AND there is already a decimal 
+        else if ( num === "." && leftOperand.includes(".") ) { }
+        else {
+            leftOperand += num;
+        }
     } 
     // Check that left operand and operator DOES EXIST to guarantee right operand needs to be filled in next
-    // also checks if beginning number is 0 (meaning you cannot add numbers further (unless decimal))
-    else if ( leftOperand && operator && rightOperand.charAt(0) !== '0' ) {
-        rightOperand += num;
+    else if ( leftOperand && operator ) {
+        // Cant add to right operand when explicity a number tried to be added AND right operand is only a zero
+        if ( num !== "." && rightOperand === "0" ) { }
+        // Cant add to right operand when explicitly a decimal tried to be added AND there is already a decimal 
+        else if ( num === "." && rightOperand.includes(".") ) { }
+        else {
+            rightOperand += num;
+        }
     }
 }   
 
@@ -134,6 +144,7 @@ deleteButton.addEventListener("click", () => {
     updateDisplay();
 });
 const decimalButton = document.getElementById("DECIMAL");
-decimalButton.addEventListener("click", (event) => {
-    console.log(event.target.textContent);
+decimalButton.addEventListener("click", () => {
+    setOperand(decimalButton.textContent);
+    updateDisplay();
 });
