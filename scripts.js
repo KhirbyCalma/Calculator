@@ -166,6 +166,10 @@ decimalButton.addEventListener("click", () => {
     setOperand(decimalButton.textContent);
     updateDisplay();
 });
+const negativeButton = document.getElementById("NEGATIVE");
+negativeButton.addEventListener("click", () => {
+    console.log("negative");
+});
 // keyboard listener
 document.addEventListener("keydown", (event) => {
     // Act as numpad characters or decimal
