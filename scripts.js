@@ -133,3 +133,7 @@ deleteButton.addEventListener("click", () => {
     deleteSingleCharDisplay();
     updateDisplay();
 });
+const decimalButton = document.getElementById("DECIMAL");
+decimalButton.addEventListener("click", (event) => {
+    console.log(event.target.textContent);
+});
