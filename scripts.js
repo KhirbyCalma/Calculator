@@ -195,4 +195,9 @@ document.addEventListener("keydown", (event) => {
             updateDisplay();
         }
     }
+    // act as delete single character
+    else if ( (event.key.charCodeAt(0) === 66) ) {
+        deleteSingleCharDisplay();
+        updateDisplay();
+    }
 });
