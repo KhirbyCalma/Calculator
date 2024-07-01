@@ -81,16 +81,16 @@ function clearDisplay() {
 }
 
 function deleteSingleCharDisplay() {
-    // meaning right operand exist to be deleted first
-    if (rightOperand) {
+    // Check that left operand, operator, and right operand exist to guarantee right operand will be deleted first
+    if (leftOperand && operator && rightOperand) {
         rightOperand = rightOperand.slice(0, -1); 
     }
-    // meaning right operand is gone and operator still exists
-    else if (operator) {
+    // Check that left operand and operator and right operand does not exist to guarantee operator will be deleted next
+    else if (leftOperand && operator && !rightOperand) {
         operator = '';
     }
-    // meaning right operand AND operator is gone and left operand exists
-    else if (leftOperand) {
+    // Check that left operand does exist and operator and right operand does not exist to left operand will be deleted next
+    else if (leftOperand && !operator && !rightOperand) {
         leftOperand = leftOperand.slice(0, -1); 
     }
 }
