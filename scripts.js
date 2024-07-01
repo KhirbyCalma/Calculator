@@ -8,28 +8,46 @@ function divide(a, b) {
     } return a / b;
 }
 
-function convertOperatorToWord(operator) {
-    // use charcodeat method to convert char to integer w/in utf-16 
-    switch(operator.charCodeAt(0)) {
+function convertOperatorKeyCodeToWord(operatorKeyCode) {
+    switch(operatorKeyCode) {
         // addition
         case (43):
             return "ADD";
         // subtraction
-        case (8722):
+        case (45):
             return "SUBTRACT";
         // multiplication
-        case (215):
+        case (42):
             return "MULTIPLY";
         // division
-        case (247):
+        case (47):
             return "DIVIDE";
         default:
-            console.log("CONVERT OPERATOR TO WORD ERROR");
+            alert("CONVERT OPERATOR KEY CODE TO WORD ERROR");
+    }
+}
+
+function convertOperatorWordToOperator(operatorWord) {
+    switch(operatorWord) {
+        // addition
+        case ("ADD"):
+            return String.fromCharCode(43);
+        // subtraction
+        case ("SUBTRACT"):
+            return String.fromCharCode(8722);
+        // multiplication
+        case ("MULTIPLY"):
+            return String.fromCharCode(215);
+        // division
+        case ("DIVIDE"):
+            return String.fromCharCode(247);
+        default:
+            alert("CONVERT OPERATOR WORD TO OPERATOR ERROR");
     }
 }
 
 function operate(leftOperand, rightOperand, operator) {
-    switch (convertOperatorToWord(operator)) {
+    switch (operator) {
         case ("ADD"):
             return add(leftOperand, rightOperand);
         case ("SUBTRACT"):
@@ -39,7 +57,7 @@ function operate(leftOperand, rightOperand, operator) {
         case ("DIVIDE"):
             return divide(leftOperand, rightOperand);
         default:
-            console.log("OPERATE FUNCTION ERROR");
+            alert("OPERATE FUNCTION ERROR");
     }
 }
 
@@ -73,14 +91,14 @@ function setOperator(op) {
     }
     // Check all parts of equation needed EXIST to operate to guarantee that equation needs to be evaluated and new operator needs to be filled in after calculation
     else if (leftOperand && operator && rightOperand) {
-        leftOperand = operate(leftOperand, rightOperand, operator).toString()
+        leftOperand = operate(leftOperand, rightOperand, operator).toString();
         operator = op;
         rightOperand = '';
     }
 }
 
 function updateDisplay() {
-    displayTextOutput.textContent = `${leftOperand} ${operator} ${rightOperand}`;
+    displayTextOutput.textContent = `${leftOperand} ${operator ? convertOperatorWordToOperator(operator) : ''} ${rightOperand}`;
 }
 
 function clearDisplay() {
@@ -121,8 +139,8 @@ for (const numberButton of numpadButtons) {
 }
 const operatorButtons = document.querySelectorAll(".operators button.operator");
 for (const operatorButton of operatorButtons) {
-    operatorButton.addEventListener("click", () => {
-        setOperator(operatorButton.textContent);
+    operatorButton.addEventListener("click", (event) => {
+        setOperator(event.target.id);
         updateDisplay();
     });
 }
@@ -156,6 +174,15 @@ document.addEventListener("keydown", (event) => {
          (event.key.charCodeAt(0) === 46)
     ) {
         setOperand(event.key);
+        updateDisplay();
+    }
+    // act as operator characters
+    else if ( (event.key.charCodeAt(0) === 43) ||
+              (event.key.charCodeAt(0) === 45) ||
+              (event.key.charCodeAt(0) === 42) ||
+              (event.key.charCodeAt(0) === 47)
+    ) {
+        setOperator(convertOperatorKeyCodeToWord(event.key.charCodeAt(0)));
         updateDisplay();
     }
 });
