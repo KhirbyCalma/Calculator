@@ -201,6 +201,6 @@ document.addEventListener("keydown", (event) => {
     }
     // act as clear 
     else if ( (event.key.charCodeAt(0) === 99) ) {
-        clearDisplay();32423
+        clearDisplay();
     }
 });
