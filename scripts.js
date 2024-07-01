@@ -57,8 +57,8 @@ function setOperand(num) {
 }   
 
 function setOperator(op) {
-    // Check that left operand DOES EXIST and right operand DOES NOT EXIST to guarantee operator needs to be filled in next
-    if (leftOperand && !rightOperand) {
+    // Check that left operand and operator DOES EXIST and right operand DOES NOT EXIST to guarantee operator needs to be filled in next
+    if (leftOperand && !operator && !rightOperand) {
         operator = op;
     }
     // Check all parts of equation needed EXIST to operate to guarantee that equation needs to be evaluated and new operator needs to be filled in after calculation
