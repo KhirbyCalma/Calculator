@@ -148,3 +148,7 @@ decimalButton.addEventListener("click", () => {
     setOperand(decimalButton.textContent);
     updateDisplay();
 });
+// keyboard listener
+document.addEventListener("keydown", (event) => {
+    console.log(event.key);
+});
