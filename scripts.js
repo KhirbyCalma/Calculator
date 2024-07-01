@@ -46,6 +46,35 @@ function convertOperatorWordToOperator(operatorWord) {
     }
 }
 
+function toggleNegative() {
+    // toggle for left operand
+    if (!operator && !rightOperand) {
+        // if positive, add negative
+        if (leftOperand.charAt(0) !== "-") {
+            leftOperand = "-" + leftOperand;
+            updateDisplay();
+        }
+        // if negative, turn positive
+        else if (leftOperand.charAt(0) === "-") {
+            leftOperand = leftOperand.substring(1);
+            updateDisplay();
+        }
+    }
+    // toggle for right operand
+    else if (leftOperand && operator) {
+        // if positive, add negative
+        if (rightOperand.charAt(0) !== "-") {
+            rightOperand = "-" + rightOperand;
+            updateDisplay();
+        }
+        // if negative, turn positive
+        else if (rightOperand.charAt(0) === "-") {
+            rightOperand = rightOperand.substring(1);
+            updateDisplay();
+        }
+    }
+}
+
 function operate(leftOperand, rightOperand, operator) {
     switch (operator) {
         case ("ADD"):
@@ -167,34 +196,7 @@ decimalButton.addEventListener("click", () => {
     updateDisplay();
 });
 const negativeButton = document.getElementById("NEGATIVE");
-negativeButton.addEventListener("click", () => {
-    // toggle for left operand
-    if (!operator && !rightOperand) {
-        // if positive, add negative
-        if (leftOperand.charAt(0) !== "-") {
-            leftOperand = "-" + leftOperand;
-            updateDisplay();
-        }
-        // if negative, turn positive
-        else if (leftOperand.charAt(0) === "-") {
-            leftOperand = leftOperand.substring(1);
-            updateDisplay();
-        }
-    }
-    // toggle for right operand
-    else if (leftOperand && operator) {
-        // if positive, add negative
-        if (rightOperand.charAt(0) !== "-") {
-            rightOperand = "-" + rightOperand;
-            updateDisplay();
-        }
-        // if negative, turn positive
-        else if (rightOperand.charAt(0) === "-") {
-            rightOperand = rightOperand.substring(1);
-            updateDisplay();
-        }
-    }
-});
+negativeButton.addEventListener("click", toggleNegative);
 // keyboard listener
 document.addEventListener("keydown", (event) => {
     // Act as numpad characters or decimal
