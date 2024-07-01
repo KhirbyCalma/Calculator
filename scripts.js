@@ -185,4 +185,14 @@ document.addEventListener("keydown", (event) => {
         setOperator(convertOperatorKeyCodeToWord(event.key.charCodeAt(0)));
         updateDisplay();
     }
+    // act as equal character
+    else if ( (event.key.charCodeAt(0) === 61) ) {
+        // meaning every element of an math equation exists to be executed
+        if (leftOperand && operator && rightOperand) {
+            leftOperand = operate(leftOperand, rightOperand, operator).toString();
+            rightOperand = '';
+            operator = '';
+            updateDisplay();
+        }
+    }
 });
